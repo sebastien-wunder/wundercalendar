@@ -64,6 +64,9 @@ a{color:#f4c860}a:hover{color:#ffd98a}
 100%{transform:translate(40%,-392%) scale(2.45) rotate(100deg);opacity:0}}
 /* keep the test-mode buttons off the smoke on mobile */
 .lay-m .test-bar{top:auto;bottom:12px}
+/* On phones the bottom edge is hidden by the browser toolbar and the test bar,
+   so the "door opens on…" toast appears mid-screen instead. */
+.lay-m .toast-region{bottom:auto;top:40%}
 
 /* ---------- Doors ----------
    The door swings open on its hinge inside its own frame (overflow hidden,
