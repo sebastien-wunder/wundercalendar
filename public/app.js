@@ -165,7 +165,8 @@ const SMOKE_CYCLE = 6.4; /* seconds — keep in sync with .puff animation-durati
 const ASSETS = {
   sceneDesktop: 'assets/scene-desktop.avif',
   sceneMobile: 'assets/scene-mobile.avif',
-  elfTop: 'assets/elf-top.avif'
+  elfTop: 'assets/elf-top.avif',
+  doorSound: 'assets/audio/door-open.mp3'
 };
 
 /* ============================================================
@@ -374,6 +375,28 @@ function preloadExtras() {
   if (extrasLoaded) return;
   extrasLoaded = true;
   [ASSETS.elfTop].forEach((src) => { const i = new Image(); i.src = src; });
+  getDoorSound();
+}
+
+/* ---------- Sound ----------
+   One shared <audio> element, created lazily; played when a door starts to open.
+   play() is rejected if the browser blocks it (it never is for a click), so the
+   promise is caught and the door simply opens silently. */
+let doorSound = null;
+function getDoorSound() {
+  if (!doorSound) {
+    doorSound = new Audio(ASSETS.doorSound);
+    doorSound.preload = 'auto';
+  }
+  return doorSound;
+}
+function playDoorSound() {
+  try {
+    const a = getDoorSound();
+    a.currentTime = 0;
+    const p = a.play();
+    if (p && p.catch) p.catch(() => {});
+  } catch (e) { /* no audio support: ignore */ }
 }
 
 /* ---------- Doors ---------- */
@@ -387,6 +410,7 @@ function handleDoor(day) {
   busy = true;
   state.doors[day] = 'opening';
   updateDoor(day);
+  playDoorSound();
   const wait = prefersReducedMotion() ? 0 : OPEN_MS + REVEAL_MS;
   setTimeout(() => {
     state.doors[day] = 'open';   /* the door is gone: empty recess with a glowing star */
@@ -525,5 +549,5 @@ window.addEventListener('resize', () => {
 render();
 
 /* Small hook for automated tests */
-window.__advent = { state: state, isDoorAvailable: isDoorAvailable, headingFor: headingFor, TEST_MODE: TEST_MODE };
+window.__advent = { state: state, isDoorAvailable: isDoorAvailable, headingFor: headingFor, TEST_MODE: TEST_MODE, getDoorSound: getDoorSound };
 })();

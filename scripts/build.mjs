@@ -13,7 +13,7 @@ cpSync(src, out, { recursive: true });
 const required = [
   'index.html', 'styles.css', 'app.js',
   'assets/scene-desktop.avif', 'assets/scene-mobile.avif',
-  'assets/elf-top.avif',
+  'assets/elf-top.avif', 'assets/audio/door-open.mp3',
   'assets/fonts/BovineMVB.otf',
   'assets/fonts/SourceSans3-latin.woff2', 'assets/fonts/SourceSans3-latin-ext.woff2'
 ];
