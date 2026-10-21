@@ -142,9 +142,7 @@ a{color:#f4c860}a:hover{color:#ffd98a}
 .dlg-wrap.is-elf{width:min(420px,100%);--e:clamp(120px,min(74%,calc((var(--rh) - 400px) * 1.087)),300px)}
 .is-elf .dialog{max-height:none;padding-top:52px}
 .is-elf .close{top:10px}
-.elf-top,.elf-feet{position:relative;display:block;width:var(--e);height:auto;margin-left:auto;margin-right:auto;pointer-events:none;user-select:none}
-.elf-top{aspect-ratio:752/515;z-index:3;margin-bottom:calc(var(--e) * -0.0971);animation:elfUp .55s cubic-bezier(.2,.9,.3,1.1) .08s both}
-.elf-feet{aspect-ratio:752/255;z-index:2;margin-top:calc(var(--e) * -0.0067)}
+.elf-top{position:relative;display:block;width:var(--e);height:auto;margin-left:auto;margin-right:auto;pointer-events:none;user-select:none;aspect-ratio:752/515;z-index:3;margin-bottom:calc(var(--e) * -0.0971);animation:elfUp .55s cubic-bezier(.2,.9,.3,1.1) .08s both}
 @keyframes elfUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.94)}to{opacity:1;transform:none}}

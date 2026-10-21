@@ -165,8 +165,7 @@ const SMOKE_CYCLE = 6.4; /* seconds — keep in sync with .puff animation-durati
 const ASSETS = {
   sceneDesktop: 'assets/scene-desktop.avif',
   sceneMobile: 'assets/scene-mobile.avif',
-  elfTop: 'assets/elf-top.avif',
-  elfFeet: 'assets/elf-feet.avif'
+  elfTop: 'assets/elf-top.avif'
 };
 
 /* ============================================================
@@ -374,7 +373,7 @@ let extrasLoaded = false;
 function preloadExtras() {
   if (extrasLoaded) return;
   extrasLoaded = true;
-  [ASSETS.elfTop, ASSETS.elfFeet].forEach((src) => { const i = new Image(); i.src = src; });
+  [ASSETS.elfTop].forEach((src) => { const i = new Image(); i.src = src; });
 }
 
 /* ---------- Doors ---------- */
@@ -446,8 +445,7 @@ function mountModal(day, moveFocus) {
 
   const box = h('div', { class: 'dlg-wrap fit-pending' + (isElf ? ' is-elf' : '') }, [
     isElf ? h('img', { class: 'elf-top', src: ASSETS.elfTop, alt: '', 'aria-hidden': 'true', draggable: 'false' }) : null,
-    dialog,
-    isElf ? h('img', { class: 'elf-feet', src: ASSETS.elfFeet, alt: '', 'aria-hidden': 'true', draggable: 'false' }) : null
+    dialog
   ]);
   const overlay = h('div', {
     class: 'overlay',
