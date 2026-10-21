@@ -11,7 +11,7 @@ rmSync(out, { recursive: true, force: true });
 cpSync(src, out, { recursive: true });
 
 const required = [
-  'index.html', 'styles.css', 'app.js',
+  'index.html', 'styles.css', 'app.js', 'favicon.ico', 'favicon.svg', 'favicon-32.png', 'apple-touch-icon.png',
   'assets/scene-desktop.avif', 'assets/scene-mobile.avif',
   'assets/elf-top.avif', 'assets/audio/door-open.mp3',
   'assets/fonts/BovineMVB.otf',
