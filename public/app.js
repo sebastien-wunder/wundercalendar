@@ -17,6 +17,11 @@ const TEST_MODE = true;
    (read as local time). Leave null to use the real date. */
 const MOCK_DATE = null;
 
+/* Runtime copies: the test bar (shown only while TEST_MODE is true) can switch
+   real-mode mechanics on and pick a pretend date without editing this file. */
+let testMode = TEST_MODE;
+let mockDate = MOCK_DATE;
+
 const PROMO_TEXT = 'Epic Week is on. Every day from 17:00 there are 50,000 free Cash Spins in Big Bass Christmas Bash.';
 const CTA_LABEL = 'Spiele jetzt';
 const CTA_URL = 'https://www.wunderino.de/';
@@ -43,25 +48,25 @@ const BULBS_PX = [[2242,1112],[96,1381],[2678,909],[61,371],[377,769],[2593,921]
 
 /* ---------- Date logic ---------- */
 function getToday() {
-  return MOCK_DATE ? new Date(MOCK_DATE) : new Date();
+  return mockDate ? new Date(mockDate) : new Date();
 }
 function releaseDate(day, now) {
   return new Date(now.getFullYear(), 11, day, 0, 0, 0, 0); /* local midnight, current year */
 }
 function isDoorAvailable(day, now) {
-  if (TEST_MODE) return true;
+  if (testMode) return true;
   return now.getTime() >= releaseDate(day, now).getTime();
 }
 /* A door whose day is over (the next day has started) stays open for good. */
 function isDoorPast(day, now) {
-  if (TEST_MODE) return false;
+  if (testMode) return false;
   return now.getTime() >= releaseDate(day + 1, now).getTime();
 }
 function headingFor(day) {
   return day + ' December';
 }
 function loadOpened() {
-  if (TEST_MODE) return {};
+  if (testMode) return {};
   const now = getToday(); const out = {};
   /* Every past day is open, whether or not this visitor clicked it. */
   for (let d = 1; d <= DOOR_COUNT; d++) { if (isDoorPast(d, now)) out[d] = 'open'; }
@@ -73,7 +78,7 @@ function loadOpened() {
   return out;
 }
 function saveOpened(doors) {
-  if (TEST_MODE) return;
+  if (testMode) return;
   try {
     window.localStorage.setItem(STORE_KEY, JSON.stringify(Object.keys(doors).filter((k) => doors[k] === 'open').map(Number)));
   } catch (e) { /* storage unavailable: doors simply reset on reload */ }
@@ -333,7 +338,25 @@ function render() {
 
   if (TEST_MODE) {
     wrap.appendChild(h('div', { class: 'test-bar' }, [
-      h('div', { class: 'pill', text: 'Test mode · all doors unlocked' }),
+      /* Switch between test mode (all doors unlocked) and the real mechanics */
+      (function () {
+        const b = h('button', {
+          type: 'button', class: 'toggle', role: 'switch',
+          'aria-checked': String(testMode), 'aria-label': 'Test mode',
+          onClick: () => setTestMode(!testMode)
+        }, [h('span', { class: 'dot', 'aria-hidden': 'true' }), h('span', { class: 'txt' })]);
+        els.toggle = b;
+        return b;
+      })(),
+      /* Pretend date for the real mechanics (local noon), hidden in test mode */
+      (function () {
+        const i = h('input', {
+          type: 'date', class: 'date', 'aria-label': 'Pretend today is',
+          onChange: (e) => { mockDate = e.target.value ? e.target.value + 'T12:00:00' : null; refreshDoors(); }
+        });
+        els.date = i;
+        return i;
+      })(),
       (function () {
         const b = h('button', { type: 'button', class: 'reset', 'aria-label': 'Close all opened doors', onClick: resetDoors });
         b.appendChild(svg({ width: '14', height: '14', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', 'stroke-width': '2.2', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' },
@@ -349,6 +372,7 @@ function render() {
   root.appendChild(wrap);
   els.stage = stage;
   els.toastRegion = toastRegion;
+  updateTestBar();
 
   if (state.modalDay) mountModal(state.modalDay, false);
 }
@@ -436,8 +460,34 @@ function resetDoors() {
   if (busy) return;
   state.doors = {};
   saveOpened(state.doors);
+  refreshDoors();
+}
+
+/* Re-evaluate every door against the current mode and date */
+function refreshDoors() {
   if (state.modalDay) closeModal(true);
+  state.doors = loadOpened();
   updateAllDoors();
+  updateTestBar();
+}
+
+function setTestMode(on) {
+  if (busy) return;
+  testMode = !!on;
+  refreshDoors();
+}
+
+function updateTestBar() {
+  if (!els.toggle) return;
+  els.toggle.setAttribute('aria-checked', String(testMode));
+  els.toggle.classList.toggle('is-on', testMode);
+  els.toggle.querySelector('.txt').textContent = testMode ? 'Test mode: ON · all doors unlocked' : 'Test mode: OFF · real dates';
+  const d = els.date;
+  d.hidden = testMode;
+  if (!testMode) {
+    const t = getToday();
+    d.value = t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0');
+  }
 }
 
 function showLocked(day) {
@@ -560,5 +610,5 @@ window.addEventListener('resize', () => {
 render();
 
 /* Small hook for automated tests */
-window.__advent = { state: state, isDoorAvailable: isDoorAvailable, isDoorPast: isDoorPast, headingFor: headingFor, TEST_MODE: TEST_MODE, getDoorSound: getDoorSound };
+window.__advent = { state: state, isDoorAvailable: isDoorAvailable, isDoorPast: isDoorPast, headingFor: headingFor, TEST_MODE: TEST_MODE, isTestMode: () => testMode, setTestMode: setTestMode, getDoorSound: getDoorSound };
 })();

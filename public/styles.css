@@ -128,6 +128,15 @@ a{color:#f4c860}a:hover{color:#ffd98a}
 .reset svg{transition:transform .5s ease}
 .reset:hover svg{transform:rotate(-180deg)}
 .pill{position:relative;padding:6px 12px;border-radius:999px;background:rgba(8,15,38,.78);border:1px solid rgba(244,200,96,.45);color:#f4c860;font:600 12px/1.2 "Source Sans 3",system-ui,sans-serif;letter-spacing:.04em;pointer-events:none}
+/* Test-mode switch: a small dot that lights up when on */
+.toggle{display:inline-flex;align-items:center;gap:8px;min-height:30px;padding:0 12px 0 10px;border-radius:999px;background:rgba(8,15,38,.78);border:1px solid rgba(244,200,96,.45);color:#f4c860;font:600 12px/1 "Source Sans 3",system-ui,sans-serif;letter-spacing:.04em;cursor:pointer;transition:background .2s,border-color .2s}
+.toggle:hover{background:rgba(30,44,86,.9);border-color:rgba(244,200,96,.8)}
+.toggle:focus-visible{outline:2px solid #ffe08a;outline-offset:2px}
+.toggle .dot{width:10px;height:10px;border-radius:50%;background:rgba(220,230,255,.25);box-shadow:inset 0 0 0 1px rgba(220,230,255,.4);transition:background .2s,box-shadow .2s}
+.toggle.is-on .dot{background:#5ad66f;box-shadow:0 0 8px rgba(90,214,111,.8)}
+.date{min-height:30px;padding:0 10px;border-radius:999px;background:rgba(8,15,38,.78);border:1px solid rgba(244,200,96,.45);color:#f4c860;font:600 12px/1 "Source Sans 3",system-ui,sans-serif;color-scheme:dark;cursor:pointer}
+.date:focus-visible{outline:2px solid #ffe08a;outline-offset:2px}
+.date[hidden]{display:none}
 .toast-region{position:absolute;left:0;right:0;bottom:5%;display:flex;justify-content:center;z-index:10;pointer-events:none;padding:0 16px}
 .toast{max-width:420px;padding:12px 20px;border-radius:999px;background:rgba(12,22,52,.92);border:1px solid rgba(244,200,96,.55);color:#eef1f8;font:600 15px/1.35 "Source Sans 3",system-ui,sans-serif;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.45);animation:toastIn .3s ease-out}
 @keyframes toastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}

@@ -17,7 +17,7 @@ npm run preview   # serves dist/
 ```
 
 ## Configuration (`public/app.js`, top of file)
-- `TEST_MODE = true` — every door opens regardless of date (as on the original). Set to `false` for production: door N can be opened from N December (viewer's local time); doors for days already gone by are shown open automatically (on 5 December, doors 1–4 are open, door 5 waits to be clicked, 6–24 are locked). Today's door is remembered in `localStorage` once opened.
+- `TEST_MODE = true` — every door opens regardless of date (as on the original), and a test bar is shown with a Test mode ON/OFF switch, a pretend-date field (real mechanics, any date) and a Reset doors button. Set to `false` for production: door N can be opened from N December (viewer's local time); doors for days already gone by are shown open automatically (on 5 December, doors 1–4 are open, door 5 waits to be clicked, 6–24 are locked). Today's door is remembered in `localStorage` once opened.
 - `MOCK_DATE` — optional clock override for testing production mode.
 - `PROMO_TEXT`, `CTA_LABEL`, `CTA_URL` — pop-up content and button link.
 
