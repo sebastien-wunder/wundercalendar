@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Christmas Advent Calendar</title>
+<link rel="preload" href="assets/fonts/BovineMVB.otf" as="font" type="font/otf" crossorigin>
+<!-- Start downloading the right artwork immediately (one per screen shape) -->
+<link rel="preload" as="image" href="assets/scene-desktop.webp" media="(min-aspect-ratio: 801/1000)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/scene-mobile.webp" media="(max-aspect-ratio: 4/5)" fetchpriority="high">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main id="advent" class="adv-root" aria-label="Christmas Advent Calendar"></main>
+<script src="app.js"></script>
+</body>
+</html>
