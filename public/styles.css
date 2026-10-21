@@ -11,8 +11,8 @@ a{color:#f4c860}a:hover{color:#ffd98a}
    capped so the doors and chalet walls (x 11–89%, y 3–93%) are never cropped; only
    a little sky, snow or eave snow is trimmed so the picture fills the phone screen. */
 .adv-root.lay-m{--sw:min(max(100vw,calc(100vh * 0.5595)),calc(100vw / 0.78),calc(100vh * 0.6217));--sh:calc(var(--sw) * 1.78723);--nudge:0.024}
-.lay-m .adv-backdrop{background-image:url(assets/scene-mobile.webp)}
-.lay-m .crop{background-image:url(assets/scene-mobile.webp)}
+.lay-m .adv-backdrop{background-image:url(assets/scene-mobile.avif)}
+.lay-m .crop{background-image:url(assets/scene-mobile.avif)}
 /* Full-bleed scene. The artwork covers the whole window, but its width is capped
    so the calendar (x 17.5–82%, y 12–94% of the art) is never cropped:
    width = min(cover, 100vw/0.68, 100vh*2.05), nudged up 3% to centre the calendar. Any space left over on very tall
@@ -20,7 +20,7 @@ a{color:#f4c860}a:hover{color:#ffd98a}
    (phone portrait) the page height shrinks to the artwork, so there is no
    empty space above or below. */
 .adv-wrap{position:absolute;inset:0;overflow:hidden}
-.adv-backdrop{position:absolute;inset:-60px;background:url(assets/scene-desktop.webp) center/cover no-repeat;filter:blur(22px) brightness(.62) saturate(1.1);transform:scale(1.08);pointer-events:none}
+.adv-backdrop{position:absolute;inset:-60px;background:url(assets/scene-desktop.avif) center/cover no-repeat;filter:blur(22px) brightness(.62) saturate(1.1);transform:scale(1.08);pointer-events:none}
 .adv-stage{position:absolute;left:50%;top:max(calc(100% - var(--sh)),min(0px,calc((100% - var(--sh)) / 2 - var(--sh) * var(--nudge,0.03))));width:var(--sw);height:var(--sh);transform:translateX(-50%);overflow:hidden;user-select:none;-webkit-user-select:none}
 .adv-scene{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
 /* Loading: hide the scene until the artwork is ready, then fade it in */
@@ -89,7 +89,7 @@ a{color:#f4c860}a:hover{color:#ffd98a}
 .is-open .leaf{transform:rotateY(100deg);opacity:0}
 .is-done .leaf{visibility:hidden}
 .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden}
-.crop{background-image:url(assets/scene-desktop.webp);background-repeat:no-repeat}
+.crop{background-image:url(assets/scene-desktop.avif);background-repeat:no-repeat}
 .front::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.6),rgba(0,0,0,.1) 75%);opacity:0;transition:opacity 750ms ease}
 .slot:not(.is-open):hover .front::after{opacity:.18}
 .is-open .front::after{opacity:1}

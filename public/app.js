@@ -163,10 +163,10 @@ const SMOKE_CYCLE = 6.4; /* seconds — keep in sync with .puff animation-durati
 
 /* Asset paths (relative to index.html) */
 const ASSETS = {
-  sceneDesktop: 'assets/scene-desktop.webp',
-  sceneMobile: 'assets/scene-mobile.webp',
-  elfTop: 'assets/elf-top.webp',
-  elfFeet: 'assets/elf-feet.webp'
+  sceneDesktop: 'assets/scene-desktop.avif',
+  sceneMobile: 'assets/scene-mobile.avif',
+  elfTop: 'assets/elf-top.avif',
+  elfFeet: 'assets/elf-feet.avif'
 };
 
 /* ============================================================

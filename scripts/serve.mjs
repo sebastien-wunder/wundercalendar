@@ -9,7 +9,7 @@ const dir = join(root, process.argv[2] || 'public');
 const port = Number(process.env.PORT) || 5173;
 const types = {
   '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 'text/javascript',
-  '.webp': 'image/webp', '.otf': 'font/otf', '.woff2': 'font/woff2', '.svg': 'image/svg+xml'
+  '.avif': 'image/avif', '.otf': 'font/otf', '.woff2': 'font/woff2', '.svg': 'image/svg+xml'
 };
 
 createServer(async (req, res) => {

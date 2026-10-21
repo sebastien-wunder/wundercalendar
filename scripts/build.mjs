@@ -12,8 +12,8 @@ cpSync(src, out, { recursive: true });
 
 const required = [
   'index.html', 'styles.css', 'app.js',
-  'assets/scene-desktop.webp', 'assets/scene-mobile.webp',
-  'assets/elf-top.webp', 'assets/elf-feet.webp',
+  'assets/scene-desktop.avif', 'assets/scene-mobile.avif',
+  'assets/elf-top.avif', 'assets/elf-feet.avif',
   'assets/fonts/BovineMVB.otf',
   'assets/fonts/SourceSans3-latin.woff2', 'assets/fonts/SourceSans3-latin-ext.woff2'
 ];
