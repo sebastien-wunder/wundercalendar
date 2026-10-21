@@ -159,7 +159,7 @@ function detectLayout() {
 
 /* Chimney smoke (mobile artwork) */
 const SMOKE_PUFFS = 16;
-const SMOKE_CYCLE = 6.4; /* seconds — keep in sync with .puff animation-duration in styles.css */
+const SMOKE_CYCLE = 9; /* seconds — keep in sync with .puff animation-duration in styles.css */
 
 /* Asset paths (relative to index.html) */
 const ASSETS = {
@@ -263,8 +263,8 @@ function render() {
   stage.appendChild(scene);
   waitForScene(scene);
 
-  /* Mobile artwork: animated chimney smoke. 16 overlapping puffs share one 6.4 s
-     cycle, each offset by 0.4 s, so the plume is continuous with no visible restart. */
+  /* Mobile artwork: animated chimney smoke. 16 overlapping puffs share one 9 s
+     cycle, each offset by 0.56 s, so the plume is continuous with no visible restart. */
   if (mobile) {
     const smoke = h('div', { class: 'smoke', 'aria-hidden': 'true' });
     for (let i = 0; i < SMOKE_PUFFS; i++) {
