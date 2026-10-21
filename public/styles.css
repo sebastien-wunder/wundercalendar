@@ -137,9 +137,10 @@ a{color:#f4c860}a:hover{color:#ffd98a}
 .dlg-wrap.fit-pending{visibility:hidden}
 /* Door 24: the elf holds the pop-up. His size (--e) is capped by the window
    height so the whole pop-up always fits on screen and never grows the page.
-   Artwork: 752 px wide images; hands overlap the panel by 73 px of 515. */
+   Artwork: 752 × 515 px; hands overlap the panel by 73 px, so the visible
+   elf adds 0.588 × --e above the panel (1 / 0.588 ≈ 1.70). */
 .overlay *{box-sizing:border-box}
-.dlg-wrap.is-elf{width:min(420px,100%);--e:clamp(120px,min(74%,calc((var(--rh) - 400px) * 1.087)),300px)}
+.dlg-wrap.is-elf{width:min(420px,100%);--e:clamp(120px,min(74%,calc((var(--rh) - 400px) * 1.70)),300px)}
 .is-elf .dialog{max-height:none;padding-top:52px}
 .is-elf .close{top:10px}
 .elf-top{position:relative;display:block;width:var(--e);height:auto;margin-left:auto;margin-right:auto;pointer-events:none;user-select:none;aspect-ratio:752/515;z-index:3;margin-bottom:calc(var(--e) * -0.0971);animation:elfUp .55s cubic-bezier(.2,.9,.3,1.1) .08s both}
