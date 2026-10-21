@@ -7,7 +7,7 @@
    CONFIGURATION
    TEST_MODE = true  → every door opens, whatever today's date.
    TEST_MODE = false → door N can be opened from N December (viewer's local
-                       date). Doors for days already gone by are shown open
+                       date, December SEASON_YEAR). Doors for days gone by are open
                        (golden star) automatically: on 5 December, doors 1–4
                        are open, door 5 waits to be clicked, 6–24 are locked.
    ============================================================ */
@@ -16,6 +16,10 @@ const TEST_MODE = true;
 /* Optional clock override for checking production mode, e.g. '2026-12-12T09:00:00'
    (read as local time). Leave null to use the real date. */
 const MOCK_DATE = null;
+
+/* The December this calendar belongs to. Doors unlock on their day of this
+   December and stay open afterwards, into the following year as well. */
+const SEASON_YEAR = 2026;
 
 /* Runtime copies: the test bar (shown only while TEST_MODE is true) can switch
    real-mode mechanics on and pick a pretend date without editing this file. */
@@ -51,7 +55,7 @@ function getToday() {
   return mockDate ? new Date(mockDate) : new Date();
 }
 function releaseDate(day, now) {
-  return new Date(now.getFullYear(), 11, day, 0, 0, 0, 0); /* local midnight, current year */
+  return new Date(SEASON_YEAR, 11, day, 0, 0, 0, 0); /* local midnight, season year */
 }
 function isDoorAvailable(day, now) {
   if (testMode) return true;
