@@ -6,7 +6,10 @@
 /* ============================================================
    CONFIGURATION
    TEST_MODE = true  → every door opens, whatever today's date.
-   TEST_MODE = false → door N opens from N December (viewer's local date).
+   TEST_MODE = false → door N can be opened from N December (viewer's local
+                       date). Doors for days already gone by are shown open
+                       (golden star) automatically: on 5 December, doors 1–4
+                       are open, door 5 waits to be clicked, 6–24 are locked.
    ============================================================ */
 const TEST_MODE = true;
 
@@ -49,17 +52,25 @@ function isDoorAvailable(day, now) {
   if (TEST_MODE) return true;
   return now.getTime() >= releaseDate(day, now).getTime();
 }
+/* A door whose day is over (the next day has started) stays open for good. */
+function isDoorPast(day, now) {
+  if (TEST_MODE) return false;
+  return now.getTime() >= releaseDate(day + 1, now).getTime();
+}
 function headingFor(day) {
   return day + ' December';
 }
 function loadOpened() {
   if (TEST_MODE) return {};
+  const now = getToday(); const out = {};
+  /* Every past day is open, whether or not this visitor clicked it. */
+  for (let d = 1; d <= DOOR_COUNT; d++) { if (isDoorPast(d, now)) out[d] = 'open'; }
+  /* Today's door is remembered once the visitor has opened it. */
   try {
     const list = JSON.parse(window.localStorage.getItem(STORE_KEY) || '[]');
-    const now = getToday(); const out = {};
     list.forEach((d) => { if (isDoorAvailable(d, now)) out[d] = 'open'; });
-    return out;
-  } catch (e) { return {}; }
+  } catch (e) { /* storage unavailable: today's door simply resets on reload */ }
+  return out;
 }
 function saveOpened(doors) {
   if (TEST_MODE) return;
@@ -549,5 +560,5 @@ window.addEventListener('resize', () => {
 render();
 
 /* Small hook for automated tests */
-window.__advent = { state: state, isDoorAvailable: isDoorAvailable, headingFor: headingFor, TEST_MODE: TEST_MODE, getDoorSound: getDoorSound };
+window.__advent = { state: state, isDoorAvailable: isDoorAvailable, isDoorPast: isDoorPast, headingFor: headingFor, TEST_MODE: TEST_MODE, getDoorSound: getDoorSound };
 })();
